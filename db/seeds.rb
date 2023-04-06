@@ -8,10 +8,11 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 6.times do |n|
-  Product.create!(
+  product = Product.new(
     name: "item#{n + 1}",
     description: "#{n + 1}番目の商品です",
-    image: ActiveStorage::Blob.create_and_upload!(io: File.open(Rails.root.join("app/assets/images/item.jpg")), filename:"item.jpg"),
     price: 1000 + 100 * n
   )
+  product.image_data = Base64.encode64(File.open("app/assets/images/item.jpg", "rb").read)
+  product.save!
 end
