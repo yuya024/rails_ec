@@ -1,0 +1,20 @@
+header.bg-dark.py-5
+  div.container.px-4.px-lg-5.my-5
+    div.class.text-center.text-white
+      h1.display-4.fw-bolder Shop in style
+      p.lead.fw-normal.text-white-50.mb-0 With this shop hompeage template
+
+section.py-5
+  .container.px-4.px-lg-5.mt-5
+    .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center
+      - @products.each do |product|
+        .col.mb-5
+          .card.h-100
+            = image_tag "data:image/jpeg;base64,#{product.image_data}", class: "card-img-top"
+            .card-body.p-4
+              .text-center
+                h5.fw-bolder = product.name
+                = product.price
+            .card-footer.p-4.pt-0.border-top-0.bg-transparent
+              .text-center
+                .btn.btn-outline-dark.mt-auto href="#" 詳細
