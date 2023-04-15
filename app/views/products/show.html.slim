@@ -1,2 +1,33 @@
-h1 Products#show
-p Find me in app/views/products/show.html.slim
+section.py-5
+  div.container.px-4.px-lg-5.my-5
+    div.row.gx-4.gx-lg-5.align-items-center
+      div.col-md-6 = image_tag "data:image/jpeg;base64,#{@product.image_data}", class: "card-img-top mb-5 mb-md-0", width: "600", height: "700"
+      div.col-md-6
+        div.small.mb-1 = @product.code 
+        h1.display-5.fw-bolder = @product.name
+        div.fs-5.mb-5
+          span.text-decoration-line-through = @product.price + 500
+          span = @product.price
+        p.lead = @product.description 
+        div.d-flex
+          input.form-control.text-center.me-3 id="inputQuantity" type="num" value="1" style="max-width: 3rem"
+          button.btn.btn-outline-dark.flex-shrink-0 type="button"
+            i.bi-cart-fill.me-1
+            |カートに追加する
+
+section.py-5.bg-light
+  div.container.px-4.px-lg-5.mt-5
+    h2.fw-bolder.mb-4 関連商品 
+    div.row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center
+      - @related_products.each do |product|
+        div.col.mb-5
+          div.card.h-100
+            = image_tag "data:image/jpeg;base64,#{product.image_data}", class: "card-img-top"
+            div.card-body.p-4
+              div.text-center
+                h5.fw-bolder = product.name
+                span.text-muted.text-decoration-line-through = product.price + 500
+                = product.price
+            div.card-footer.p-4.pt-0.border-top-0.bg-transparent
+              div.text-center 
+                a.btn.btn-outline-dark.mt-auto href="#" 詳細 
