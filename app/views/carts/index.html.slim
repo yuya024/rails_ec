@@ -1,0 +1,151 @@
+div.container
+  div.row.g-5
+    div.col-md-5.col-lg-4.order-md-last
+      h4.d-flex.justify-content-between.align-items-center.mb-3
+        span.text-primary あなたのカート
+        span.badge.bg-primary.rounded-pill = @cart_items.size
+      ul.list-group.mb-3
+        - @cart_items.each do |item|
+          li.list-group-item.d-flex.justify-content-between.lh-sm
+            div
+              h6.my-0 = item.product.name
+              small.text-body-secondary = "#{item.quantity}個"
+            div
+              h6.my-0 = "#{item.product.price}円"
+              .btn.btn-outline-dark.mt-auto = link_to '削除', cart_item_path(current_cart, item, product_id: item.product.id, product_name: item.product.name), data: { "turbo-method": :delete }
+        li.list-group-item.d-flex.justify-content-between.bg-body-tertiar
+          div.text-success
+            h6.my-0 プロモーションコード
+            small EXAMPLECODE
+          span.text-success −$5
+        li.list-group-item.d-flex.justify-content-between
+          span 合計(円)
+          strong = "#{@total_price}円"
+
+      form.card.p-2
+        div.input-group
+          input type="text" class="form-control" placeholder="プロモーションコード"
+          button type="submit" class="btn btn-secondary" 引き換え
+
+    div.col-md-7.col-lg-8
+      h4.mb-3 請求先住所
+      form.needs-validation
+        div.row.g-3
+          div.col-sm-6
+            label for="lastName" class="form-label" 姓 
+            input type="text" class="form-control" id="lastName" placeholder="" value=""
+            div class="invalid-feedback"
+              | Valid last name is required.
+
+          div.col-sm-6
+            label for="firstName" class="form-label" 名
+            input type="text" class="form-control" id="firstName" placeholder="" value=""
+            div.invalid-feedback
+              | Valid first name is required.
+
+          div.col-12
+            label for="username" class="form-label" ユーザー名
+            div.input-group.has-validation
+              span.input-group-text @
+              input type="text" class="form-control" id="username" placeholder="Username"
+            div.invalid-feedback
+                | Your username is required.
+
+          div.col-12
+            label for="email" class="form-label" メールアドレス
+            span class="text-body-secondary" (任意)
+            input type="email" class="form-control" id="email" placeholder="you@example.com"
+            div.invalid-feedback
+              | Please enter a valid email address for shipping updates.
+
+          div.col-12
+            label for="address" class="form-label" 住所
+            input type="text" class="form-control" id="address" placeholder="渋谷" 
+            div.invalid-feedback
+              | Please enter your shipping address.
+
+          div.col-12
+            label for="address2" class="form-label" 住所2
+            span class="text-body-secondary" (任意)
+            input type="text" class="form-control" id="address2" placeholder="新宿"
+
+          div.col-md-5
+            label for="country" class="form-label" 国
+            select class="form-select" id="country"
+              option value="" 選ぶ...
+              option 日本
+            div.invalid-feedback
+              | Please select a valid country.
+
+          div.col-md-4
+            label for="state" class="form-label" 県
+            select.form-select id="state"
+              option value="" 選ぶ...
+              option 東京
+            div.invalid-feedback
+              | Please provide a valid state.
+
+          div.col-md-3
+            label for="zip" class="form-label" 郵便番号
+            input type="text" class="form-control" id="zip" placeholder=""
+            div.invalid-feedback
+              | Zip code required.
+
+        hr.my-4
+
+        div.form-check
+          input type="checkbox" class="form-check-input" id="same-address"
+          label.form-check-label for="same-address" 配送先住所は私の請求先住所と同じです
+
+        div.form-check
+          input type="checkbox" class="form-check-input" id="save-info"
+          label.form-check-label for="save-info" 次回のためにこの情報を保存します
+
+        hr.my-4
+
+        h4.mb-3 支払い
+
+        div.my-3
+          div.form-check
+            input id="credit" name="paymentMethod" type="radio" class="form-check-input"
+            label.form-check-label for="credit" Credit card
+          div.form-check
+            input id="debit" name="paymentMethod" type="radio" class="form-check-input"
+            label.form-check-label for="debit" Debit card
+          div.form-check
+            input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
+            label.form-check-label for="paypal" PayPal
+
+        div.row.gy-3
+          div.col-md-6
+            label for="cc-name" class="form-label" カードの名前
+            input type="text" class="form-control" id="cc-name" placeholder=""
+            small.text-body-secondary カードに記載されているフルネーム
+            div.invalid-feedback
+              | Name on card is required
+
+          div.col-md-6
+            label for="cc-number" class="form-label" クレジットカード番号
+            input type="text" class="form-control" id="cc-number" placeholder=""
+            div.invalid-feedback
+              | Credit card number is required
+
+          div.col-md-3
+            label for="cc-expiration" class="form-label" 有効期限
+            input type="text" class="form-control" id="cc-expiration" placeholder=""
+            div.invalid-feedback
+              | Expiration date required
+
+          div.col-md-3
+            label for="cc-cvv" class="form-label" CVV
+            input type="text" class="form-control" id="cc-cvv" placeholder=""
+            div.invalid-feedback
+              | Security code required
+
+        hr.my-4
+
+        button.w-100.btn.btn-primary.btn-lg type="submit" 決済にすすむ 
+        
+        hr.my-4
+
+

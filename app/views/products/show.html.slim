@@ -10,10 +10,13 @@ section.py-5
           span = @product.price
         p.lead = @product.description 
         div.d-flex
-          input.form-control.text-center.me-3 id="inputQuantity" type="num" value="1" style="max-width: 3rem"
-          button.btn.btn-outline-dark.flex-shrink-0 type="button"
-            i.bi-cart-fill.me-1
-            |カートに追加する
+          = form_with url: cart_items_path(current_cart, product_id: @product.id, product_name: @product.name, quantity: @quantity), method: :post do |form|
+            div.row
+              div.col-4.input-number
+                = form.number_field :quantity, class: "form-control text-center me-3", id: "inputQuantity", style: "max-width: 4rem"
+              div.col-8.col.add-cart
+                = button_tag type: 'submit', class: "btn btn-outline-dark flex-shrink-0"
+                  i.bi-cart-fill.me-1 カートに追加
 
 section.py-5.bg-light
   div.container.px-4.px-lg-5.mt-5

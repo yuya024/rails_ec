@@ -8,7 +8,7 @@ section.py-5
   .container.px-4.px-lg-5.mt-5
     .row.gx-4.gx-lg-5.row-cols-2.row-cols-md-3.row-cols-xl-4.justify-content-center
       - @products.each do |product|
-        .col.mb-5
+        .col.mb-5 = link_to product, class: "card-link-custom"
           .card.h-100
             = image_tag "data:image/jpeg;base64,#{product.image_data}", class: "card-img-top"
             .card-body.p-4
@@ -17,4 +17,4 @@ section.py-5
                 = product.price
             .card-footer.p-4.pt-0.border-top-0.bg-transparent
               .text-center
-                .btn.btn-outline-dark.mt-auto = link_to "詳細", product
+                .btn.btn-outline-dark.mt-auto = link_to "カートに追加", cart_items_path(current_cart, product_id: product.id, product_name: product.name, index: true), data: { "turbo-method": :post } 
