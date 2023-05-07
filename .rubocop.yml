@@ -3,3 +3,5 @@ require:
   - rubocop-rspec
 Style/Documentation:
   Enabled: false
+Metrics/AbcSize:
+  Max: 25

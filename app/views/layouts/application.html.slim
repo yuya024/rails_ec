@@ -34,8 +34,10 @@ html
           form.d-flex
             button.btn.btn-outline-dark type="submit"
               i.bi-cart-fill.me-1
-              | カート
-              span.badge.bg-dark.text-white.ms-1.rounded-pill 0
+              = link_to "カート", carts_path
+              span.badge.bg-dark.text-white.ms-1.rounded-pill = current_cart.cart_items.size
+    - if flash[:notice].present?
+      div.alert.alert-success = flash[:notice]
     = yield
     footer.py-5.bg-dark 
       div.container
