@@ -1,3 +1,7 @@
+- if @order.errors.present?
+      ul.alert.alert-danger  
+        - @order.errors.full_messages.each do |message|
+          li = message
 div.container
   div.row.g-5
     div.col-md-5.col-lg-4.order-md-last
@@ -29,123 +33,75 @@ div.container
 
     div.col-md-7.col-lg-8
       h4.mb-3 請求先住所
-      form.needs-validation
+      = form_with model: @order, url: orders_path, local: true do |f|
         div.row.g-3
           div.col-sm-6
-            label for="lastName" class="form-label" 姓 
-            input type="text" class="form-control" id="lastName" placeholder="" value=""
-            div class="invalid-feedback"
-              | Valid last name is required.
+            = f.label :last_name, "姓", class: "form-label"
+            = f.text_field :last_name, class: "form-control"
 
           div.col-sm-6
-            label for="firstName" class="form-label" 名
-            input type="text" class="form-control" id="firstName" placeholder="" value=""
-            div.invalid-feedback
-              | Valid first name is required.
+            = f.label :first_name, "名", class: "form-label"
+            = f.text_field :first_name, class: "form-control", required: true
 
           div.col-12
-            label for="username" class="form-label" ユーザー名
+            = f.label :user_name, "ユーザー名", class: "form-label"
             div.input-group.has-validation
               span.input-group-text @
-              input type="text" class="form-control" id="username" placeholder="Username"
-            div.invalid-feedback
-                | Your username is required.
+              = f.text_field :user_name, class: "form-control", placeholder: "Username", required: true
 
           div.col-12
-            label for="email" class="form-label" メールアドレス
-            span class="text-body-secondary" (任意)
-            input type="email" class="form-control" id="email" placeholder="you@example.com"
-            div.invalid-feedback
-              | Please enter a valid email address for shipping updates.
+            = f.label :email_address, "メールアドレス", class: "form-label"
+            = f.text_field :email_address, class: "form-control", placeholder: "you@example.com", required: true
 
           div.col-12
-            label for="address" class="form-label" 住所
-            input type="text" class="form-control" id="address" placeholder="渋谷" 
-            div.invalid-feedback
-              | Please enter your shipping address.
+            = f.label :address, "住所", class: "form-label"
+            = f.text_field :address, class: "form-control", placeholder: "渋谷１−１", required: true
 
           div.col-12
-            label for="address2" class="form-label" 住所2
-            span class="text-body-secondary" (任意)
-            input type="text" class="form-control" id="address2" placeholder="新宿"
+            = f.label :mansion_name, "マンション名(任意)", class: "form-label"
+            = f.text_field :mansion_name, class: "form-control" 
 
           div.col-md-5
-            label for="country" class="form-label" 国
-            select class="form-select" id="country"
-              option value="" 選ぶ...
-              option 日本
-            div.invalid-feedback
-              | Please select a valid country.
+            = label_tag :country_id, "国", class: 'form-label'
+            = select_tag :country_id,
+                        options_from_collection_for_select(Country.all, :id, :name, params[:country_id]),
+                        prompt: '選択してください', class: "form-select", required: true,
+                        data: { url: "city_list", "turbo-method": :post, remote: true}
 
           div.col-md-4
-            label for="state" class="form-label" 県
-            select.form-select id="state"
-              option value="" 選ぶ...
-              option 東京
-            div.invalid-feedback
-              | Please provide a valid state.
+            = label_tag :city_id, "県", class: 'form-label'
+            = select_tag :city_id,
+                        options_from_collection_for_select(@cities, :id, :name, params[:city_id]), prompt: '選択してください', class: "form-select", required: true
 
           div.col-md-3
-            label for="zip" class="form-label" 郵便番号
-            input type="text" class="form-control" id="zip" placeholder=""
-            div.invalid-feedback
-              | Zip code required.
+            = f.label :postal_code, "郵便番号", class: 'form-label'
+            = f.text_field :postal_code, class: 'form-control', required: true, pattern: '[0-9]+'
 
-        hr.my-4
+          hr.my-4
 
-        div.form-check
-          input type="checkbox" class="form-check-input" id="same-address"
-          label.form-check-label for="same-address" 配送先住所は私の請求先住所と同じです
+          h4.mb-3 支払い
 
-        div.form-check
-          input type="checkbox" class="form-check-input" id="save-info"
-          label.form-check-label for="save-info" 次回のためにこの情報を保存します
+          div.row.gy-3
+            div.col-md-6
+              = f.label :card_name, "カード名義", class: 'form-label'
+              = f.text_field :card_name, class: 'form-control', required: true
+              small.text-body-secondary カードに記載されているフルネーム
 
-        hr.my-4
+            div.col-md-6
+              = f.label :card_number, "クレジットカード番号", class: 'form-label'
+              = f.text_field :card_number, class: 'form-control', required: true, pattern: '[0-9]+'
 
-        h4.mb-3 支払い
+            div.col-md-3
+              = f.label :card_expiration, "有効期限", class: 'form-label'
+              = f.date_field :card_expiration, class: 'form-control', required: true
 
-        div.my-3
-          div.form-check
-            input id="credit" name="paymentMethod" type="radio" class="form-check-input"
-            label.form-check-label for="credit" Credit card
-          div.form-check
-            input id="debit" name="paymentMethod" type="radio" class="form-check-input"
-            label.form-check-label for="debit" Debit card
-          div.form-check
-            input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
-            label.form-check-label for="paypal" PayPal
+            div.col-md-3
+              = f.label :card_cvv, "CVV", class: 'form-label'
+              = f.text_field :card_cvv, class: 'form-control', required: true, pattern: '[0-9]+'
+          hr.my-4
 
-        div.row.gy-3
-          div.col-md-6
-            label for="cc-name" class="form-label" カードの名前
-            input type="text" class="form-control" id="cc-name" placeholder=""
-            small.text-body-secondary カードに記載されているフルネーム
-            div.invalid-feedback
-              | Name on card is required
-
-          div.col-md-6
-            label for="cc-number" class="form-label" クレジットカード番号
-            input type="text" class="form-control" id="cc-number" placeholder=""
-            div.invalid-feedback
-              | Credit card number is required
-
-          div.col-md-3
-            label for="cc-expiration" class="form-label" 有効期限
-            input type="text" class="form-control" id="cc-expiration" placeholder=""
-            div.invalid-feedback
-              | Expiration date required
-
-          div.col-md-3
-            label for="cc-cvv" class="form-label" CVV
-            input type="text" class="form-control" id="cc-cvv" placeholder=""
-            div.invalid-feedback
-              | Security code required
-
-        hr.my-4
-
-        button.w-100.btn.btn-primary.btn-lg type="submit" 決済にすすむ 
-        
-        hr.my-4
+          = f.submit "決済", class: "button w-100 btn btn-primary btn-lg"
+          
+          hr.my-4
 
 

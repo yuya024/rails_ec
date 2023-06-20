@@ -28,16 +28,16 @@ html
                 li 
                   hr.dropdown-divider
                 li 
-                  a.dropdown-item href="#!" 人気商品 
+                  a.dropdown-item href="#!" 人気商品
                 li 
-                  a.dropdown-item href="#!" 新着商品 
+                  a.dropdown-item href="#!" 新着商品
           form.d-flex
             button.btn.btn-outline-dark type="submit"
               i.bi-cart-fill.me-1
               = link_to "カート", carts_path
               span.badge.bg-dark.text-white.ms-1.rounded-pill = current_cart.cart_items.size
-    - if flash[:notice].present?
-      div.alert.alert-success = flash[:notice]
+    - flash.each do |message_type, message|
+      div.alert.alert-success = message
     = yield
     footer.py-5.bg-dark 
       div.container

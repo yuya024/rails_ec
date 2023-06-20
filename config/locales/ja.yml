@@ -6,6 +6,22 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      order: 注文
+    attributes:
+      order:
+        last_name: 姓
+        first_name: 名
+        user_name: ユーザ名
+        email_address: メールアドレス
+        postal_code: 郵便番号
+        address: 住所
+        country_id: 国
+        city_id: 都市
+        card_name: カード名義
+        card_number: カード番号
+        card_expiration: カードの有効期限
+        card_cvv: カードのセキュリティコード
   date:
     abbr_day_names:
     - 日
