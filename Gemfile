@@ -65,6 +65,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'html2slim'
+  gem 'letter_opener_web'
   gem 'pry-byebug'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false

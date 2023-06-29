@@ -1,0 +1,46 @@
+div.container
+  div.row.g-5
+    div.col-md-5
+      div.card.mb-4.rounded-3.mt-3
+        div.card-header.py-3
+          h4.my-0.fw-normal 注文商品
+        div.card-body.pb-4
+          - @order.order_items.each do |item|
+            ul.list-unstyled
+              li.h4 = item.item_name
+              li = "￥#{item.price.to_fs(:delimited)}"
+              li = "#{item.quantity}個"
+            hr.my-2
+
+    div.col-md-7
+      div.card.mb-4.rounded-3.mt-3
+        div.card-header.py-3
+          h4.my-0.fw-normal 注文者情報
+        div.card-body
+          ul.list-unstyled.mt-3.mb-3
+            li.h5
+              | 名前：
+              span = "#{@order.last_name} #{@order.first_name}"
+            li.h5
+              | メールアドレス：
+              span = @order.email_address
+            li.h5
+              | 郵便番号：
+              span = @order.postal_code
+            li.h5
+              | 国：
+              span = @order.country.name
+            li.h5
+              | 県：
+              span = @order.city.name
+            li.h5
+              | 住所：
+              span = @order.address
+      div.card.mb-4.rounded-3.mt-3
+        div.card-header.py-3
+          h4.my-0.fw-normal 決済
+          hr.my-4
+          div.list-group-item.d-flex.justify-content-between.mb-2.px-3
+            strong 合計
+            strong = "￥#{@order.total_price.to_fs(:delimited)}"
+        

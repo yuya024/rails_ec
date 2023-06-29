@@ -20,8 +20,8 @@
 end
 
 countries = [
-  { name: '日本'},
-  { name: 'アメリカ'}
+  { name: '日本' },
+  { name: 'アメリカ' }
 ]
 
 cities = [

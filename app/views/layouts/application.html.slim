@@ -9,36 +9,39 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
-    .navbar.navbar-expand-lg.navbar-light.bg-light
-      div.container.px-4.px-lg-5
-        a.navbar-brand href="#!" ECサイト 
-        button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-          span.navbar-toggler-icon
-        div.collapse.navbar-collapse#navbarSupportedContent
-          ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
-            li.nav-item 
-              a.nav-link.active aria-current="page" href="#!" ホーム 
-            li.nav-item 
-              a.nav-link.active href="#!" お店について 
-            li.nav-item.dropdown
-              a.nav-link.dropdown-toggle#navbarDropdown href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" お店 
-              ul.dropdown-menu aria-labelledby="navbarDropdown"
-                li 
-                  a.dropdown-item href="#!" 全ての商品 
-                li 
-                  hr.dropdown-divider
-                li 
-                  a.dropdown-item href="#!" 人気商品
-                li 
-                  a.dropdown-item href="#!" 新着商品
-          form.d-flex
-            button.btn.btn-outline-dark type="submit"
-              i.bi-cart-fill.me-1
-              = link_to "カート", carts_path
-              span.badge.bg-dark.text-white.ms-1.rounded-pill = current_cart.cart_items.size
-    - flash.each do |message_type, message|
-      div.alert.alert-success = message
-    = yield
-    footer.py-5.bg-dark 
-      div.container
-        p.m-0.text-center.text-white Copyright &copy; ECサイト 2023
+    div.footer-fixed  
+      .navbar.navbar-expand-lg.navbar-light.bg-light
+        div.container.px-4.px-lg-5
+          a.navbar-brand href="#!" ECサイト 
+          button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            span.navbar-toggler-icon
+          div.collapse.navbar-collapse#navbarSupportedContent
+            ul.navbar-nav.me-auto.mb-2.mb-lg-0.ms-lg-4
+              li.nav-item 
+                = link_to "ホーム", root_path, class: "nav-link active"
+              li.nav-item 
+                a.nav-link.active href="#!" お店について 
+              li.nav-item.dropdown
+                a.nav-link.dropdown-toggle#navbarDropdown href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" お店 
+                ul.dropdown-menu aria-labelledby="navbarDropdown"
+                  li 
+                    a.dropdown-item href="#!" 全ての商品 
+                  li 
+                    hr.dropdown-divider
+                  li 
+                    a.dropdown-item href="#!" 人気商品
+                  li 
+                    a.dropdown-item href="#!" 新着商品
+              li.nav-item 
+                = link_to "購入一覧", orders_path, class: "nav-link active"
+            form.d-flex
+              button.btn.btn-outline-dark type="submit"
+                i.bi-cart-fill.me-1
+                = link_to "カート", carts_path
+                span.badge.bg-dark.text-white.ms-1.rounded-pill = current_cart.cart_items.size
+      - flash.each do |message_type, message|
+        div.alert.alert-success = message
+      = yield
+      footer.py-5.bg-dark.footer
+        div.container
+          p.m-0.text-center.text-white Copyright &copy; ECサイト 2023
