@@ -75,7 +75,7 @@ div.container
 
           div.col-md-3
             = f.label :postal_code, "郵便番号", class: 'form-label'
-            = f.text_field :postal_code, class: 'form-control', required: true, pattern: '[0-9]+'
+            = f.text_field :postal_code, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
 
           hr.my-4
 
@@ -89,7 +89,7 @@ div.container
 
             div.col-md-6
               = f.label :card_number, "クレジットカード番号", class: 'form-label'
-              = f.text_field :card_number, class: 'form-control', required: true, pattern: '[0-9]+'
+              = f.text_field :card_number, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
 
             div.col-md-3
               = f.label :card_expiration, "有効期限", class: 'form-label'
@@ -97,7 +97,7 @@ div.container
 
             div.col-md-3
               = f.label :card_cvv, "CVV", class: 'form-label'
-              = f.text_field :card_cvv, class: 'form-control', required: true, pattern: '[0-9]+'
+              = f.text_field :card_cvv, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
           hr.my-4
 
           = f.submit "決済", class: "button w-100 btn btn-primary btn-lg"
