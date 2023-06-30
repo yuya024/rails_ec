@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckoutMailer < ApplicationMailer
-  default from: 'checkout@example.com'
+  default from: 'yuyaaanissy@gmail.com'
 
   def checkout_email(order)
     @order = order
