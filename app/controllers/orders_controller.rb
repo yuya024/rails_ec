@@ -16,6 +16,10 @@ class OrdersController < ApplicationController
     elsif Order.order_process(order: @order, current_cart_items: @cart_items)
       order_successful
     else
+      @error_messages = @order.errors.full_messages.reject do |m|
+        str = %w[Country City]
+        m.include?(str[0]) || m.include?(str[1])
+      end
       render 'carts/index', status: :unprocessable_entity
     end
   end

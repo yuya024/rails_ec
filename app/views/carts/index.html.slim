@@ -1,6 +1,6 @@
-- if @order.errors.present?
-      ul.alert.alert-danger  
-        - @order.errors.full_messages.each do |message|
+- if @error_messages.present?
+      ul.alert.alert-danger
+        - @error_messages.each do |message|
           li = message
 div.container
   div.row.g-5
@@ -41,21 +41,21 @@ div.container
 
           div.col-sm-6
             = f.label :first_name, "名", class: "form-label"
-            = f.text_field :first_name, class: "form-control", required: true
+            = f.text_field :first_name, class: "form-control"
 
           div.col-12
             = f.label :user_name, "ユーザー名", class: "form-label"
             div.input-group.has-validation
               span.input-group-text @
-              = f.text_field :user_name, class: "form-control", placeholder: "Username", required: true
+              = f.text_field :user_name, class: "form-control", placeholder: "Username"
 
           div.col-12
             = f.label :email_address, "メールアドレス", class: "form-label"
-            = f.text_field :email_address, class: "form-control", placeholder: "you@example.com", required: true
+            = f.text_field :email_address, class: "form-control", placeholder: "you@example.com"
 
           div.col-12
             = f.label :address, "住所", class: "form-label"
-            = f.text_field :address, class: "form-control", placeholder: "渋谷１−１", required: true
+            = f.text_field :address, class: "form-control", placeholder: "渋谷１−１"
 
           div.col-12
             = f.label :mansion_name, "マンション名(任意)", class: "form-label"
@@ -65,17 +65,17 @@ div.container
             = label_tag :country_id, "国", class: 'form-label'
             = select_tag :country_id,
                         options_from_collection_for_select(Country.all, :id, :name, params[:country_id]),
-                        prompt: '選択してください', class: "form-select", required: true,
+                        prompt: '選択してください', class: "form-select",
                         data: { url: "city_list", "turbo-method": :post, remote: true}
 
           div.col-md-4
             = label_tag :city_id, "県", class: 'form-label'
             = select_tag :city_id,
-                        options_from_collection_for_select(@cities, :id, :name, params[:city_id]), prompt: '選択してください', class: "form-select", required: true
+                        options_from_collection_for_select(@cities, :id, :name, params[:city_id]), prompt: '選択してください', class: "form-select"
 
           div.col-md-3
             = f.label :postal_code, "郵便番号", class: 'form-label'
-            = f.text_field :postal_code, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
+            = f.text_field :postal_code, class: 'form-control', pattern: '[0-9]+', title: "半角数字のみで入力してください"
 
           hr.my-4
 
@@ -84,20 +84,20 @@ div.container
           div.row.gy-3
             div.col-md-6
               = f.label :card_name, "カード名義", class: 'form-label'
-              = f.text_field :card_name, class: 'form-control', required: true
+              = f.text_field :card_name, class: 'form-control'
               small.text-body-secondary カードに記載されているフルネーム
 
             div.col-md-6
               = f.label :card_number, "クレジットカード番号", class: 'form-label'
-              = f.text_field :card_number, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
+              = f.text_field :card_number, class: 'form-control', pattern: '[0-9]+', title: "半角数字のみで入力してください"
 
             div.col-md-3
               = f.label :card_expiration, "有効期限", class: 'form-label'
-              = f.date_field :card_expiration, class: 'form-control', required: true
+              = f.date_field :card_expiration, class: 'form-control'
 
             div.col-md-3
               = f.label :card_cvv, "CVV", class: 'form-label'
-              = f.text_field :card_cvv, class: 'form-control', required: true, pattern: '[0-9]+', title: "半角数字のみで入力してください"
+              = f.text_field :card_cvv, class: 'form-control', pattern: '[0-9]+', title: "半角数字のみで入力してください"
           hr.my-4
 
           = f.submit "決済", class: "button w-100 btn btn-primary btn-lg"

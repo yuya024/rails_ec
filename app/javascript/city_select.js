@@ -24,8 +24,6 @@ document.addEventListener("turbo:load", function () {
       option.value = "";
       option.text = "選択してください";
       city_select.appendChild(option);
-      console.log("ccc")
-      console.log(data)
       data.cities.forEach(city => {
         let option = document.createElement("option");
         option.value = city.id;
