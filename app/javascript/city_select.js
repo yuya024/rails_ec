@@ -1,8 +1,8 @@
-document.addEventListener("turbo:load", function () {
+function loadCities() {
   let select = document.querySelector("select#country_id");
   select.addEventListener("change", function () {
     let country_id = this.value;
-    
+
     fetch(this.dataset.url, {
       method: this.dataset.turboMethod,
       headers: {
@@ -32,4 +32,7 @@ document.addEventListener("turbo:load", function () {
       });
     });
   });
-});
+}
+
+document.addEventListener("turbo:load", loadCities);
+document.addEventListener("turbo:render", loadCities);
