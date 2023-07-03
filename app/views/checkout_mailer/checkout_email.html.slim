@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta[http-equiv="Content-Type" content="text/html; charset=utf-8"]
+  body
+    h1 = "#{@order.last_name} #{@order.first_name}様"
+    p この度は、ご注文いただきありがとうございます。<br>
+      下記の内容でご注文処理が完了致しましたので、お知らせいたします。
+    h2 お客様情報
+    p = "名前：#{@order.last_name} #{@order.first_name}様"
+    p = "メールアドレス：#{@order.email_address}" 
+    p = "郵便番号：#{@order.postal_code}" 
+    p = "国：#{@order.country.name}" 
+    p = "県：#{@order.city.name}" 
+    p = "住所：#{@order.address}" 
+    p = "注文日：#{@order.created_at.strftime('%Y/%m/%d')}" 
+    h2 注文商品
+    - @order.order_items.each do |item|
+      p = "商品名：#{item.item_name}"
+      p = "価格：￥#{item.price.to_fs(:delimited)}"
+      p = "数量：#{item.quantity}個"
+      hr
+    h2 = "合計：￥#{@order.total_price.to_fs(:delimited)}"

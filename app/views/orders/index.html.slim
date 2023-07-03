@@ -1,0 +1,18 @@
+div.container
+  div.row.justify-content-md-center
+    div.col-md-10
+      div.card-body.table-responsive.p-0
+        table.table.table-hover.text-nowrap
+          thead
+            tr
+              th 注文者
+              th 金額
+              th 注文日
+              th 
+          tbody
+            - @orders.each do |order|
+              tr
+                td = order.email_address
+                td = "￥#{order.total_price.to_fs(:delimited)}"
+                td = order.created_at.strftime('%Y %m/%d %H:%M')
+                td.nav_link.active = link_to "詳細", order_path(order)
