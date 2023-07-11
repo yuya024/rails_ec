@@ -20,4 +20,7 @@ html
       p = "価格：￥#{item.price.to_fs(:delimited)}"
       p = "数量：#{item.quantity}個"
       hr
+    p = "小計：￥#{@order.sub_total.to_fs(:delimited)}"
+    p =  @order.discount == 0 ? "割引額 :" : "割引額：-￥#{@order.discount.to_fs(:delimited)}"
+    hr
     h2 = "合計：￥#{@order.total_price.to_fs(:delimited)}"

@@ -41,6 +41,13 @@ div.container
           h4.my-0.fw-normal 決済
           hr.my-4
           div.list-group-item.d-flex.justify-content-between.mb-2.px-3
+            span 小計
+            span = "￥#{@order.sub_total.to_fs(:delimited)}"
+          div.list-group-item.d-flex.justify-content-between.mb-2.px-3
+            span 割引額
+            span = "-￥#{@order.discount.to_fs(:delimited)}" if @order.discount != 0
+          hr.my-4
+          div.list-group-item.d-flex.justify-content-between.mb-2.px-3
             strong 合計
             strong = "￥#{@order.total_price.to_fs(:delimited)}"
         

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :carts, only: :index do
     resources :items, only: %i[create destroy], controller: :cart_items
   end
+  post 'promotion_apply', to: 'orders#promotion_apply'
   post 'city_list', to: 'orders#city_list'
   resources :orders
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?

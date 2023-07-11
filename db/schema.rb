@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_224227) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_04_062753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,8 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_224227) do
     t.string "card_cvv", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "promotion_id"
     t.index ["city_id"], name: "index_orders_on_city_id"
     t.index ["country_id"], name: "index_orders_on_country_id"
+    t.index ["promotion_id"], name: "index_orders_on_promotion_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -81,6 +83,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_224227) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code", default: "", null: false
+  end
+
+  create_table "promotions", force: :cascade do |t|
+    t.string "code", null: false
+    t.integer "discount", null: false
+    t.boolean "used", default: false, null: false
+    t.bigint "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_promotions_on_order_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -97,4 +109,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_224227) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "cities"
   add_foreign_key "orders", "countries"
+  add_foreign_key "orders", "promotions"
+  add_foreign_key "promotions", "orders"
 end

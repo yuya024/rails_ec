@@ -6,5 +6,6 @@ class CartsController < ApplicationController
     @total_price = current_cart.total_price
     @cities = []
     @order = Order.new
+    @promotion = Promotion.new
   end
 end
