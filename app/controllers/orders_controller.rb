@@ -32,15 +32,15 @@ class OrdersController < ApplicationController
   end
 
   def promotion_apply
-    @promotion = Promotion.where(code: params[:code]).first
-    if @promotion.blank? || @promotion.used == true
-      @promotion = params[:code]
-      @message = '入力されたコードは無効です'
-      @total_price = current_cart.total_price
-      render json: { promotion: @promotion, message: @message, total_price: @total_price }
+    promotion = Promotion.where(code: params[:code]).first
+    if promotion.blank? || promotion.used == true
+      promotion = params[:code]
+      message = '入力されたコードは無効です'
+      total_price = current_cart.total_price
+      render json: { promotion:, message:, total_price: }
     else
-      @total_price = current_cart.total_price
-      render json: { promotion: @promotion, total_price: @total_price }
+      total_price = current_cart.total_price
+      render json: { promotion:, total_price: }
     end
   end
 
