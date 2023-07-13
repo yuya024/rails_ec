@@ -32,8 +32,9 @@ class OrdersController < ApplicationController
   end
 
   def promotion_apply
-    promotion = Promotion.where(code: params[:code]).first
+    promotion = Promotion.find_by(code: params[:code])
     total_price = current_cart.total_price
+    session[:promotion_id] = nil
 
     if current_cart.cart_items.includes(:product).blank?
       promotion = params[:code]
@@ -44,6 +45,7 @@ class OrdersController < ApplicationController
       message = '入力されたコードは無効です'
       render json: { promotion:, message:, total_price: }
     else
+      set_current_promotion(promotion:)
       render json: { promotion:, total_price: }
     end
   end

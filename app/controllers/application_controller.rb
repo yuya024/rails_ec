@@ -10,4 +10,12 @@ class ApplicationController < ActionController::Base
     session[:cart_id] ||= current_cart.id
     Cart.find(session[:cart_id])
   end
+
+  def current_promotion
+    Promotion.find_by(id: session[:promotion_id])
+  end
+
+  def set_current_promotion(promotion:)
+    session[:promotion_id] = promotion.id
+  end
 end

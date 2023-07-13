@@ -13,6 +13,11 @@ class CartItemsController < ApplicationController
 
   def destroy
     flash[:notice] = "#{params[:product_name]}をカートから削除しました" if current_cart.delete_item(product_id: params[:product_id])
+
+    if current_cart.cart_items.blank? && current_promotion.present?
+      flash[:notice] << "\nまたカートに商品がないためコードは無効となりました"
+      session[:promotion_id] = nil
+    end
     redirect_to carts_path
   end
 end

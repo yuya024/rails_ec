@@ -40,7 +40,7 @@ html
                 = link_to "カート", carts_path
                 span.badge.bg-dark.text-white.ms-1.rounded-pill = current_cart.cart_items.size
       - flash.each do |message_type, message|
-        div.alert.alert-success = message
+        div.alert.alert-success = simple_format(message)
       = yield
       footer.py-5.bg-dark.footer
         div.container
