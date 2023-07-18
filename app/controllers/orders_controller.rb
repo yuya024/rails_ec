@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
   def promotion_apply
     promotion = Promotion.find_by(code: params[:code])
     total_price = current_cart.total_price
-    session[:promotion_id] = nil
+    current_cart.update!(promotion_id: nil)
 
     if current_cart.cart_items.includes(:product).blank?
       promotion = params[:code]

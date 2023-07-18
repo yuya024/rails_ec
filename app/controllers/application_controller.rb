@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_promotion
-    Promotion.find_by(id: session[:promotion_id])
+    Promotion.find_by(id: current_cart.promotion_id)
   end
 
   def set_current_promotion(promotion:)
-    session[:promotion_id] = promotion.id
+    current_cart.update!(promotion_id: promotion.id)
   end
 end

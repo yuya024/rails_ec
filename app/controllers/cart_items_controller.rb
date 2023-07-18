@@ -16,7 +16,7 @@ class CartItemsController < ApplicationController
 
     if current_cart.cart_items.blank? && current_promotion.present?
       flash[:notice] << "\nまたカートに商品がないためコードは無効となりました"
-      session[:promotion_id] = nil
+      current_cart.update!(promotion_id: nil)
     end
     redirect_to carts_path
   end
