@@ -4,7 +4,7 @@
           li = message
 div.container
   div.row.g-5
-    div.col-md-5.col-lg-4.order-md-last
+    div.col-md-5.col-lg-4.order-md-last data-controller="promotion" data-promotion-url-value="promotion_apply"
       h4.d-flex.justify-content-between.align-items-center.mb-3
         span.text-primary あなたのカート
         span.badge.bg-primary.rounded-pill = @cart_items.size
@@ -20,20 +20,26 @@ div.container
         li.list-group-item.d-flex.justify-content-between.bg-body-tertiar
           div.text-success
             h6.my-0 プロモーションコード
-            small EXAMPLECODE
-          span.text-success −$5
+            small data-promotion-target="readCode"
+              = @promotion.code
+          span.text-success data-promotion-target="discount"
+            = "-#{@promotion.discount}円" if @promotion.discount.present?
         li.list-group-item.d-flex.justify-content-between
           span 合計(円)
-          strong = "#{@total_price}円"
+          strong data-promotion-target="totalPrice" 
+            = "#{@total_price}円"
 
-      form.card.p-2
-        div.input-group
-          input type="text" class="form-control" placeholder="プロモーションコード"
-          button type="submit" class="btn btn-secondary" 引き換え
+      = form_with model: @promotion, url: "promotion_apply" do |f|
+        small.text-body-secondary ※適用されるコードは１つのみです
+        form.card.p-2
+          div.input-group
+            = f.text_field :code, class: "form-control", placeholder: "プロモーションコード", data: { promotion_target: "code" }
+            = f.submit "適用", class: "btn btn-secondary", data: { action: "click->promotion#apply" }
+        small data-promotion-target="errorMessage" style="color: red;"
 
     div.col-md-7.col-lg-8
       h4.mb-3 請求先住所
-      = form_with model: @order, url: orders_path, local: true do |f|
+      = form_with model: @order, url: orders_path(@order, promotion_id: @promotion.id), data: { promotion_target: "form", action: orders_path }, local: true do |f|
         div.row.g-3
           div.col-sm-6
             = f.label :last_name, "姓", class: "form-label"
